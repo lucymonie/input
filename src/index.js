@@ -35,11 +35,15 @@ class List extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
-    const newList = [...this.state.list, this.state.textEntered];
-    this.setState({
-      textEntered: '',
-      list: newList
-    });
+    if (this.state.textEntered.length) {
+      const newList = [...this.state.list, this.state.textEntered];
+      this.setState({
+        textEntered: '',
+        list: newList
+      });
+    } else {
+      return;
+    }
   }
 
   render () {
