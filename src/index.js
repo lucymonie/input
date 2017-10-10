@@ -53,7 +53,6 @@ class List extends React.Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           textEntered={this.state.textEntered}
-          list={this.state.list}
         />
       </div>
     )
