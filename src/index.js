@@ -1,49 +1,60 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ListItems from './list-items'
+import Form from './form'
+import './index.css'
 
 
-class SubmitName extends React.Component {
+class List extends React.Component {
   constructor (props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      name: 'there',
-      textEntered: ''
+      textEntered: '',
+      list:['Monkeys', 'Giraffes', 'Elephants']
     }
   }
 
-  onChange (event) {
+  handleClick (event) {
+    event.preventDefault();
+    const itemToDelete = event.target.getAttribute('item');
+    const newList = this.state.list.filter((item) => item !== itemToDelete);
+    this.setState({
+      list: newList
+    });
+  }
+
+  handleChange (event) {
     event.preventDefault();
     this.setState({
       textEntered: event.target.value
-    })
+    });
   }
 
-  onSubmit (event) {
+  handleSubmit (event) {
     event.preventDefault();
+    const newList = [...this.state.list, this.state.textEntered];
     this.setState({
-      name: this.state.textEntered,
-      textEntered: ''
-    })
+      textEntered: '',
+      list: newList
+    });
   }
 
   render () {
     return (
-      <div>
-        <Greeting name={this.state.name}/>
-        <form onSubmit={this.onSubmit.bind(this)}>
-          <input value={this.state.textEntered} onChange={this.onChange.bind(this)} />
-          <button>Submit</button>
-        </form>
-      </div>
-    )
-  }
-}
-
-class Greeting extends React.Component {
-  render () {
-    return (
-      <div>
-        <h2>Greeting: Hello {this.props.name}</h2>
+      <div className="container">
+        <ListItems
+          list={this.state.list}
+          handleClick={this.handleClick}
+         />
+        <Form
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          textEntered={this.state.textEntered}
+          list={this.state.list}
+        />
       </div>
     )
   }
@@ -51,4 +62,4 @@ class Greeting extends React.Component {
 
 
 const app = document.getElementById('root');
-ReactDOM.render(<SubmitName />, app)
+ReactDOM.render(<List />, app)
