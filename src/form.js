@@ -11,7 +11,7 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input value={this.props.textEntered} onChange={this.handleChange} />
-        <button>Add</button>
+        <button type="submit" >Add</button>
       </form>
     )
   }
